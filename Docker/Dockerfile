@@ -1,8 +1,7 @@
 FROM debian:buster-slim
 
 RUN apt-get update && \
-  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends dpkg wget curl ca-certificates \
-  git build-essential dh-make fakeroot devscripts lsb-release && \
+  DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends wget curl ca-certificates git build-essential dh-make fakeroot devscripts lsb-release && \
   rm -rf /var/lib/apt/lists/*
 
 ENV OS_ARCH="amd64"
