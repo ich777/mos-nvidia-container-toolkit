@@ -67,9 +67,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ env.TOOLKIT_VERSION }}
-        release_name: "nvidia-container-toolkit v${{ env.TOOLKIT_VERSION }}"
+        release_name: "nvidia-container-toolkit ${{ env.TOOLKIT_VERSION }}"
         body: |
-          nvidia-container-toolkit v${{ env.TOOLKIT_VERSION }} for MOS
+          nvidia-container-toolkit ${{ env.TOOLKIT_VERSION }} for MOS
         draft: false
         prerelease: false
 
