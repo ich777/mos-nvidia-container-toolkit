@@ -35,7 +35,7 @@ CMD bash -c "cd $BUILD_DIR && \
   cd $PACKAGE_DIR/usr/bin && \
   ln -s /usr/bin/nvidia-container-runtime-hook /usr/bin/nvidia-container-toolkit && \
   cp /opt/config.toml $PACKAGE_DIR/etc/nvidia-container-runtime/config.toml && \
-  cat $GOPATH/src/github.com/NVIDIA/nvidia-container-toolkit/LICENSE* >> $DRIVER_PACKAGE_DIR/usr/share/doc/$DRIVER_NAME/LICENSE && \
+  cat $GOPATH/src/github.com/NVIDIA/nvidia-container-toolkit/LICENSE* >> $DRIVER_PACKAGE_DIR/usr/share/doc/nvidia-container-toolkit/LICENSE && \
   cd $BUILD_DIR && \
   echo \"Package: nvidia-container-toolkit\nVersion: $TOOLKIT_VERSION\nArchitecture: amd64\nMaintainer: ich777\nDescription: nvidia-container-toolkit for MOS\" > $PACKAGE_DIR/DEBIAN/control && \
   cd $BUILD_DIR && \
