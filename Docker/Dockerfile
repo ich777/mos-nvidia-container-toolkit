@@ -45,6 +45,6 @@ CMD bash -c "cd $BUILD_DIR && \
   echo \"Version: $TOOLKIT_VERSION\" >> $PACKAGE_DIR/DEBIAN/control && \
   echo \"Architecture: amd64\" >> $PACKAGE_DIR/DEBIAN/control && \
   echo \"Maintainer: ich777\" >> $PACKAGE_DIR/DEBIAN/control && \
-  echo \"Description: nvidia-container-toolkit for MOS\" && \
+  echo \"Description: nvidia-container-toolkit for MOS\" >> $PACKAGE_DIR/DEBIAN/control && \
   dpkg-deb --build package $BUILD_DIR/nvidia-container-toolkit_${TOOLKIT_VERSION}-1+mos_amd64.deb && \
-  md5sum $BUILD_DIR/nvidia-container-toolkit_${TOOLKIT_VERSION}-1+mos_amd64.deb | awk '{print $1}' > $BUILD_DIR/nvidia-container-toolkit_${TOOLKIT_VERSION}-1+mos_amd64.deb.md5"
+  md5sum $BUILD_DIR/nvidia-container-toolkit_${TOOLKIT_VERSION}-1+mos_amd64.deb | awk \"{print $1}\" > $BUILD_DIR/nvidia-container-toolkit_${TOOLKIT_VERSION}-1+mos_amd64.deb.md5"
