@@ -1,0 +1,16 @@
+disable-require = false
+
+[nvidia-container-cli]
+path = "/usr/bin/nvidia-container-cli"
+environment = []
+ldcache = "/etc/ld.so.cache"
+load-kmods = true
+ldconfig = "@/sbin/ldconfig"
+
+[nvidia-container-runtime]
+log-level = "warning"
+runtimes = [ "runc" ]
+mode = "auto"
+
+[nvidia-container-runtime.modes.csv]
+mount-spec-path = "/etc/nvidia-container-runtime/host-files-for-container.d"
