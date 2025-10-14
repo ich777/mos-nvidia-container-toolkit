@@ -57,7 +57,7 @@ jobs:
         docker run --rm \
           -v ${{ github.workspace }}/output:/tmp \
           -e TOOLKIT_VERSION=${TOOLKIT_VERSION} \
-          ghcr.io/ich777/nvidia-container-toolkit:buster
+          ghcr.io/ich777/mos-nvidia-container-toolkit:buster
 
     - name: Create Release
       if: env.CREATE_RELEASE == 'true' && success()
