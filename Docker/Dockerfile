@@ -41,7 +41,10 @@ CMD bash -c "cd $BUILD_DIR && \
   cp /opt/config.toml $PACKAGE_DIR/etc/nvidia-container-runtime/config.toml && \
   cat $GOPATH/src/github.com/NVIDIA/nvidia-container-toolkit/LICENSE* >> $PACKAGE_DIR/usr/share/doc/nvidia-container-toolkit/LICENSE && \
   cd $BUILD_DIR && \
-  echo \"Package: nvidia-container-toolkit\nVersion: $TOOLKIT_VERSION\nArchitecture: amd64\nMaintainer: ich777\nDescription: nvidia-container-toolkit for MOS\" > $PACKAGE_DIR/DEBIAN/control && \
-  cd $BUILD_DIR && \
+  echo \"Package: nvidia-container-toolkit\" > $PACKAGE_DIR/DEBIAN/control && \
+  echo \"Version: $TOOLKIT_VERSION\" >> $PACKAGE_DIR/DEBIAN/control && \
+  echo \"Architecture: amd64\" >> $PACKAGE_DIR/DEBIAN/control && \
+  echo \"Maintainer: ich777\" >> $PACKAGE_DIR/DEBIAN/control && \
+  echo \"Description: nvidia-container-toolkit for MOS\" && \
   dpkg-deb --build package $BUILD_DIR/nvidia-container-toolkit_${TOOLKIT_VERSION}-1+mos_amd64.deb && \
   md5sum $BUILD_DIR/nvidia-container-toolkit_${TOOLKIT_VERSION}-1+mos_amd64.deb | awk '{print $1}' > $BUILD_DIR/nvidia-container-toolkit_${TOOLKIT_VERSION}-1+mos_amd64.deb.md5"
