@@ -1,7 +1,8 @@
 FROM debian:buster-slim
 
 RUN apt-get update && \
-  DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends wget curl ca-certificates git build-essential dh-make fakeroot devscripts lsb-release && \
+  DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends dpkg wget curl ca-certificates git build-essential \
+  dh-make fakeroot devscripts lsb-release && \
   rm -rf /var/lib/apt/lists/*
 
 ENV OS_ARCH="amd64"
@@ -35,8 +36,8 @@ CMD bash -c "cd $BUILD_DIR && \
   ln -s /usr/bin/nvidia-container-runtime-hook /usr/bin/nvidia-container-toolkit && \
   cp /opt/config.toml $PACKAGE_DIR/etc/nvidia-container-runtime/config.toml && \
   cat $GOPATH/src/github.com/NVIDIA/nvidia-container-toolkit/LICENSE* >> $DRIVER_PACKAGE_DIR/usr/share/doc/$DRIVER_NAME/LICENSE && \
-  cd ${BUILD_DIR} && \
+  cd $BUILD_DIR && \
   echo \"Package: nvidia-container-toolkit\nVersion: $TOOLKIT_VERSION\nArchitecture: amd64\nMaintainer: ich777\nDescription: nvidia-container-toolkit for MOS\" > $PACKAGE_DIR/DEBIAN/control && \
-  cd ${BUILD_DIR} && \
+  cd $BUILD_DIR && \
   dpkg-deb --build package $BUILD_DIR/nvidia-container-toolkit_${TOOLKIT_VERSION}-1+mos_amd64.deb && \
   md5sum $BUILD_DIR/nvidia-container-toolkit_${TOOLKIT_VERSION}-1+mos_amd64.deb | awk '{print $1}' > $BUILD_DIR/nvidia-container-toolkit_${TOOLKIT_VERSION}-1+mos_amd64.deb.md5"
