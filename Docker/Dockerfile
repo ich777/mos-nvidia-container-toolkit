@@ -37,7 +37,7 @@ CMD bash -c "cd $BUILD_DIR && \
   cp $GOPATH/src/github.com/NVIDIA/nvidia-container-toolkit/nvidia-container-runtime.cdi $PACKAGE_DIR/usr/bin && \
   cp $GOPATH/src/github.com/NVIDIA/nvidia-container-toolkit/nvidia-container-runtime.legacy $PACKAGE_DIR/usr/bin && \
   cd $PACKAGE_DIR/usr/bin && \
-  ln -s /usr/bin/nvidia-container-runtime-hook /usr/bin/nvidia-container-toolkit && \
+  ln -s nvidia-container-runtime-hook nvidia-container-toolkit && \
   cp /opt/config.toml $PACKAGE_DIR/etc/nvidia-container-runtime/config.toml && \
   cat $GOPATH/src/github.com/NVIDIA/nvidia-container-toolkit/LICENSE* >> $PACKAGE_DIR/usr/share/doc/nvidia-container-toolkit/LICENSE && \
   cd $BUILD_DIR && \
