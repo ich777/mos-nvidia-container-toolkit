@@ -30,7 +30,7 @@ CMD bash -c "cd $BUILD_DIR && \
   git checkout v${TOOLKIT_VERSION} && \
   mkdir -p $PACKAGE_DIR/usr/bin $PACKAGE_DIR/DEBIAN $PACKAGE_DIR/etc/nvidia-container-runtime $PACKAGE_DIR/usr/share/doc/nvidia-container-toolkit && \
   sed -i '/if err := updateLdCache(os\.Args); err != nil/,+3d' $GOPATH/src/github.com/NVIDIA/nvidia-container-toolkit/cmd/nvidia-cdi-hook/update-ldcache/update-ldcache.go && \
-  sed -i '/func updateLdCacheHandler() {/a\\tvar _ = log.Printf' $GOPATH/src/github.com/NVIDIA/nvidia-container-toolkit/cmd/nvidia-cdi-hook/update-ldcache/update-ldcache.go && \
+  sed -i '/func updateLdCacheHandler() {/a\\\\tvar _ = log.Printf' $GOPATH/src/github.com/NVIDIA/nvidia-container-toolkit/cmd/nvidia-cdi-hook/update-ldcache/update-ldcache.go && \
   make LIBNVIDIA_CONTAINER_VERSION=${TOOLKIT_VERSION} LIBNVIDIA_CONTAINER_TAG=${TOOLKIT_VERSION} binaries && \
   cp $GOPATH/src/github.com/NVIDIA/nvidia-container-toolkit/nvidia-container-runtime-hook $PACKAGE_DIR/usr/bin && \
   cp $GOPATH/src/github.com/NVIDIA/nvidia-container-toolkit/nvidia-container-runtime $PACKAGE_DIR/usr/bin && \
