@@ -5,12 +5,12 @@ RUN echo "deb http://archive.debian.org/debian/ buster main contrib non-free" > 
     echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until
 
 RUN apt-get update && \
-  DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends dpkg wget curl ca-certificates git build-essential \
+  DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends dpkg wget curl wget ca-certificates git build-essential \
   dh-make fakeroot devscripts lsb-release && \
   rm -rf /var/lib/apt/lists/*
 
 ENV OS_ARCH="amd64"
-ENV GOLANG_VERSION="1.22.12"
+ENV GOLANG_VERSION="1.25.6"
 ENV BUILD_DIR=/tmp
 ENV GOPATH=$BUILD_DIR/go
 ENV PATH=/opt/go/bin:$PATH
@@ -19,7 +19,7 @@ ENV PACKAGE_DIR=$BUILD_DIR/package
 
 COPY config.toml /opt/config.toml
 
-RUN curl https://storage.googleapis.com/golang/go${GOLANG_VERSION}.linux-${OS_ARCH}.tar.gz | tar -C /opt -xz
+RUN wget -qO- https://go.dev/dl/go${GOLANG_VERSION}.linux-${OS_ARCH}.tar.gz | tar -C /opt -xz
 RUN chmod -R 777 /opt
 
 CMD bash -c "cd $BUILD_DIR && \
@@ -29,8 +29,6 @@ CMD bash -c "cd $BUILD_DIR && \
   cd $GOPATH/src/github.com/NVIDIA/nvidia-container-toolkit && \
   git checkout v${TOOLKIT_VERSION} && \
   mkdir -p $PACKAGE_DIR/usr/bin $PACKAGE_DIR/DEBIAN $PACKAGE_DIR/etc/nvidia-container-runtime $PACKAGE_DIR/usr/share/doc/nvidia-container-toolkit && \
-  sed -i '/if err := updateLdCache(os\.Args); err != nil/,+3d' $GOPATH/src/github.com/NVIDIA/nvidia-container-toolkit/cmd/nvidia-cdi-hook/update-ldcache/update-ldcache.go && \
-  sed -i '/func updateLdCacheHandler() {/a\\\\tvar _ = log.Printf' $GOPATH/src/github.com/NVIDIA/nvidia-container-toolkit/cmd/nvidia-cdi-hook/update-ldcache/update-ldcache.go && \
   make LIBNVIDIA_CONTAINER_VERSION=${TOOLKIT_VERSION} LIBNVIDIA_CONTAINER_TAG=${TOOLKIT_VERSION} binaries && \
   cp $GOPATH/src/github.com/NVIDIA/nvidia-container-toolkit/nvidia-container-runtime-hook $PACKAGE_DIR/usr/bin && \
   cp $GOPATH/src/github.com/NVIDIA/nvidia-container-toolkit/nvidia-container-runtime $PACKAGE_DIR/usr/bin && \
