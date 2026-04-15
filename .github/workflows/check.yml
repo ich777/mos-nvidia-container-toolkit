@@ -21,7 +21,7 @@ jobs:
     - name: Check versions
       run: |
         # Grab latest release from official repostiory and latest release version from this repostiory
-        LATEST_TOOLKIT="$(curl -u ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} -s https://api.github.com/repos/NVIDIA/nvidia-container-toolkit/releases/latest | jq -r '.tag_name' | sed 's/^v//')"
+        LATEST_TOOLKIT="$(curl -u ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} -s https://api.github.com/repos/NVIDIA/nvidia-container-toolkit/tags | jq -r '.[] | select(.name | test("-(rc|beta|alpha)"; "i") | not) | .name' | sort -V | tail -1 | sed 's/^v//')"
         CURRENT_TOOLKIT="$(curl -u ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} -s https://api.github.com/repos/ich777/mos-nvidia-container-toolkit/releases/latest | jq -r '.tag_name' | sed 's/^v//')"
 
         # Check if one of the versions is empty
