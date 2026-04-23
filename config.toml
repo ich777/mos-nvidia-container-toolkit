@@ -1,6 +1,7 @@
 disable-require = false
 
 [nvidia-container-cli]
+no-pivot = true
 path = "/usr/bin/nvidia-container-cli"
 environment = []
 ldcache = "/etc/ld.so.cache"
@@ -10,7 +11,6 @@ ldconfig = "@/sbin/ldconfig"
 [nvidia-container-runtime]
 log-level = "warning"
 runtimes = [ "runc" ]
-no-pivot = true
 mode = "auto"
 
 [nvidia-container-runtime.modes.csv]
