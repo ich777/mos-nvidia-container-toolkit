@@ -27,4 +27,4 @@ jobs:
         context: ./
         file: ./Docker/Dockerfile_arm
         push: true
-        tags: ghcr.io/${{ github.repository_owner }}/mos-nvidia-container-toolkit:buster
+        tags: ghcr.io/${{ github.repository_owner }}/mos-nvidia-container-toolkit:buster_arm
