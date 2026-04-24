@@ -25,6 +25,6 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         context: ./
-        file: ./Docker/Dockerfile
+        file: ./Docker/Dockerfile_arm
         push: true
         tags: ghcr.io/${{ github.repository_owner }}/mos-nvidia-container-toolkit:buster
